@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>404 — CodeRoot</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        .error-page {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 60vh;
+            text-align: center;
+            gap: 1rem;
+        }
+        .error-code { font-size: 6rem; font-weight: 800; color: #30363d; line-height: 1; }
+        .error-msg  { font-size: 1.2rem; color: #8b949e; }
+    </style>
+</head>
+<body>
+    <header class="site-header">
+        <div class="header-inner">
+            <div class="brand">
+                <span class="brand-icon">🌱</span>
+                <span class="brand-name">CodeRoot</span>
+            </div>
+        </div>
+    </header>
+    <main>
+        <div class="error-page">
+            <div class="error-code">404</div>
+            <p class="error-msg">This root doesn't exist.</p>
+            <a href="/" class="btn-secondary" style="padding:.6rem 1.2rem;border-radius:8px;background:#21262d;color:#c9d1d9;border:1px solid #30363d;text-decoration:none;font-weight:600;">
+                ← Back to CodeRoot
+            </a>
+        </div>
+    </main>
+</body>
+</html>

@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="GitRoot is a futuristic GitHub intelligence dashboard for developers, students, and open-source builders." />
+  <meta name="theme-color" content="#07111f" />
+  <meta property="og:title" content="GitRoot — GitHub Contribution Intelligence" />
+  <meta property="og:description" content="Analyze GitHub profiles, repositories, languages, activity, and generate a developer portfolio using free GitHub APIs." />
+  <meta property="og:type" content="website" />
+  <title>GitRoot — Developer Intelligence Dashboard</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <div class="noise" aria-hidden="true"></div>
+  <div class="orb orb-a" aria-hidden="true"></div>
+  <div class="orb orb-b" aria-hidden="true"></div>
+
+  <header class="nav">
+    <a class="logo" href="#top" aria-label="GitRoot home">
+      <span class="logo-mark">⌬</span><span>GitRoot</span>
+    </a>
+    <nav class="nav-links" aria-label="Main navigation">
+      <a href="#analyzer">Analyze</a>
+      <a href="#insights">Insights</a>
+      <a href="#portfolio">Portfolio</a>
+      <a href="#roadmap">Roadmap</a>
+    </nav>
+    <button id="themeBtn" class="ghost-btn" type="button" aria-label="Toggle theme">◐</button>
+  </header>
+
+  <main id="top">
+    <section class="hero section-grid">
+      <div class="hero-copy reveal">
+        <p class="eyebrow">Free API • Static hosting • Secure by design</p>
+        <h1>Turn your GitHub into a living developer intelligence system.</h1>
+        <p class="hero-text">GitRoot scans public GitHub data, ranks repositories, maps your language stack, tracks activity, and builds a portfolio summary you can use for internships, placements, and resumes.</p>
+        <div class="hero-actions">
+          <a class="primary-btn" href="#analyzer">Launch Analyzer</a>
+          <button class="secondary-btn" id="demoBtn" type="button">Try @sxndy66</button>
+        </div>
+        <div class="trust-row" aria-label="Project benefits">
+          <span>🚀 Resume-ready insights</span><span>🧠 Smart repo scoring</span><span>✨ Portfolio generator</span>
+        </div>
+      </div>
+      <div class="hero-panel reveal delay-1" aria-label="GitRoot preview">
+        <div class="terminal-top"><span></span><span></span><span></span><p>gitroot.scan</p></div>
+        <div class="holo-card tilt-card">
+          <div class="scan-ring"><span></span></div>
+          <div>
+            <p class="mini-label">Root Health</p>
+            <strong id="heroScore">--</strong>
+            <p class="mini-copy">Contribution strength, repository quality, and profile completeness combined.</p>
+          </div>
+        </div>
+        <div class="floating-metrics">
+          <div><b id="heroRepos">0</b><span>Repos</span></div>
+          <div><b id="heroStars">0</b><span>Stars</span></div>
+          <div><b id="heroLangs">0</b><span>Langs</span></div>
+        </div>
+      </div>
+    </section>
+
+    <section id="analyzer" class="panel reveal">
+      <div class="panel-head">
+        <div>
+          <p class="eyebrow">Analyzer</p>
+          <h2>Scan a GitHub profile</h2>
+        </div>
+        <button id="clearBtn" class="ghost-btn" type="button">Clear saved data</button>
+      </div>
+      <form id="scanForm" class="scan-form">
+        <label class="input-shell">
+          <span>GitHub username</span>
+          <input id="username" type="text" placeholder="example: sxndy66" autocomplete="off" required />
+        </label>
+        <label class="input-shell token-shell">
+          <span>Optional token</span>
+          <input id="token" type="password" placeholder="Only if you hit GitHub rate limits" autocomplete="off" />
+        </label>
+        <button class="primary-btn scan-btn" type="submit">Analyze</button>
+      </form>
+      <p class="secure-note">Token is never sent anywhere except GitHub API requests from your browser and is not saved permanently.</p>
+      <div id="status" class="status" role="status" aria-live="polite"></div>
+    </section>
+
+    <section id="insights" class="dashboard">
+      <article class="profile-card panel reveal">
+        <div id="profileEmpty" class="empty-state">Search a username to generate profile intelligence.</div>
+        <div id="profileView" hidden>
+          <div class="profile-top">
+            <img id="avatar" alt="GitHub avatar" />
+            <div>
+              <h2 id="displayName">Developer</h2>
+              <a id="profileLink" href="#" target="_blank" rel="noopener">@username</a>
+              <p id="bio">No bio found.</p>
+            </div>
+          </div>
+          <div class="kpi-grid">
+            <div><b id="score">0</b><span>Root Score</span></div>
+            <div><b id="repoCount">0</b><span>Repos</span></div>
+            <div><b id="followerCount">0</b><span>Followers</span></div>
+            <div><b id="publicGists">0</b><span>Gists</span></div>
+          </div>
+        </div>
+      </article>
+
+      <article class="panel reveal delay-1">
+        <div class="panel-head compact"><h2>Language Matrix</h2><span id="langMeta">--</span></div>
+        <div id="languageBars" class="bar-list"></div>
+      </article>
+
+      <article class="panel reveal delay-2 wide">
+        <div class="panel-head compact"><h2>Top Repositories</h2><button id="copyPortfolioBtn" class="ghost-btn" type="button">Copy portfolio text</button></div>
+        <div id="repoGrid" class="repo-grid"></div>
+      </article>
+
+      <article class="panel reveal delay-1">
+        <div class="panel-head compact"><h2>Activity Pulse</h2><span id="eventMeta">--</span></div>
+        <div id="eventList" class="event-list"></div>
+      </article>
+
+      <article class="panel reveal delay-2">
+        <div class="panel-head compact"><h2>Smart Recommendations</h2><span>AI-style rules</span></div>
+        <ul id="recommendations" class="recommendations"></ul>
+      </article>
+    </section>
+
+    <section id="portfolio" class="panel portfolio-panel reveal">
+      <div class="panel-head">
+        <div><p class="eyebrow">Resume impact</p><h2>Generated developer portfolio</h2></div>
+        <button id="downloadBtn" class="secondary-btn" type="button">Download JSON</button>
+      </div>
+      <pre id="portfolioText">Analyze your GitHub username to generate a portfolio summary.</pre>
+    </section>
+
+    <section id="roadmap" class="roadmap section-grid">
+      <div class="reveal">
+        <p class="eyebrow">Build plan</p>
+        <h2>Phase roadmap for low-resource hosting</h2>
+        <p>Phase 1 is fully static. Later phases can add Supabase/Firebase login, GitHub OAuth, leaderboards, and AI recommendations when you have more resources.</p>
+      </div>
+      <div class="timeline reveal delay-1">
+        <div><b>01</b><span>Static GitHub Analyzer</span></div>
+        <div><b>02</b><span>Portfolio Export + Resume Blocks</span></div>
+        <div><b>03</b><span>Optional Auth + Saved Profiles</span></div>
+        <div><b>04</b><span>Team Leaderboard + Open Source Finder</span></div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <p>GitRoot — built for Vercel, GitHub Pages, and free public APIs.</p>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
